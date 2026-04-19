@@ -526,22 +526,99 @@
           </div>
         </article>
 
-        <article class="card project">
-          <svg class="visual" viewBox="0 0 800 450" aria-label="Discovery project placeholder visual">
-            <rect width="800" height="450" fill="#f9fbff"></rect>
-            <rect x="130" y="70" width="540" height="300" rx="30" fill="#edf3ff" stroke="#b8cdf7" stroke-width="6" stroke-dasharray="18 14"></rect>
-            <text x="246" y="172" font-size="42" fill="#325ea8" font-family="Arial" font-weight="700">Discovery Project</text>
-            <text x="275" y="228" font-size="28" fill="#5d75a8" font-family="Arial">Feature in progress</text>
-            <text x="194" y="286" font-size="24" fill="#6f83ae" font-family="Arial">Add screenshots, summary, and results here</text>
+        <article class="card project" style="grid-column: 1 / -1;">
+          <svg class="visual" viewBox="0 0 1200 450" aria-label="Activation compression discovery project visual">
+            <rect width="1200" height="450" fill="#f8fbff"></rect>
+            <rect x="24" y="24" width="1152" height="62" rx="18" fill="#eef3ff"></rect>
+            <text x="600" y="64" text-anchor="middle" font-size="30" fill="#325ea8" font-family="Arial" font-weight="700">Activation Compression Trainer</text>
+
+            <rect x="110" y="130" width="240" height="170" rx="24" fill="#d9e7ff"></rect>
+            <rect x="480" y="130" width="240" height="170" rx="24" fill="#bcd3fb"></rect>
+            <rect x="850" y="130" width="240" height="170" rx="24" fill="#8fb2f0"></rect>
+
+            <path d="M350 215 H480" stroke="#4f7bcb" stroke-width="10" stroke-linecap="round"></path>
+            <path d="M720 215 H850" stroke="#4f7bcb" stroke-width="10" stroke-linecap="round"></path>
+
+            <polygon points="480,215 462,205 462,225" fill="#4f7bcb"></polygon>
+            <polygon points="850,215 832,205 832,225" fill="#4f7bcb"></polygon>
+
+            <text x="230" y="182" text-anchor="middle" font-size="28" fill="#325ea8" font-family="Arial" font-weight="700">Standard Training</text>
+            <text x="230" y="225" text-anchor="middle" font-size="22" fill="#5d75a8" font-family="Arial">High-memory stored</text>
+            <text x="230" y="255" text-anchor="middle" font-size="22" fill="#5d75a8" font-family="Arial">activations</text>
+
+            <text x="600" y="182" text-anchor="middle" font-size="28" fill="#325ea8" font-family="Arial" font-weight="700">2-Bit Compression</text>
+            <text x="600" y="225" text-anchor="middle" font-size="22" fill="#5d75a8" font-family="Arial">Uniform low-bit</text>
+            <text x="600" y="255" text-anchor="middle" font-size="22" fill="#5d75a8" font-family="Arial">activations across layers</text>
+
+            <text x="970" y="182" text-anchor="middle" font-size="28" fill="#ffffff" font-family="Arial" font-weight="700">Efficient Trainer</text>
+            <text x="970" y="225" text-anchor="middle" font-size="22" fill="#ffffff" font-family="Arial">GPU-aware design</text>
+            <text x="970" y="255" text-anchor="middle" font-size="22" fill="#ffffff" font-family="Arial">PyTorch + Triton</text>
+
+            <text x="230" y="360" text-anchor="middle" font-size="22" fill="#325ea8" font-family="Arial" font-weight="700">Baseline memory cost</text>
+            <text x="600" y="360" text-anchor="middle" font-size="22" fill="#325ea8" font-family="Arial" font-weight="700">93.75% storage saved vs FP32</text>
+            <text x="970" y="360" text-anchor="middle" font-size="22" fill="#325ea8" font-family="Arial" font-weight="700">Hardware-aware implementation</text>
           </svg>
           <div class="project-body">
-            <h3>Discovery Project Feature</h3>
+            <h3>Discovery Project Feature: Activation Compression Trainer</h3>
             <p>
-              This section is reserved for my ECE 1100 Discovery Project feature. By the Discovery Project Showcase, this card will include a full project summary, visuals, and a clearer discussion of the work, results, and impact. I designed this portfolio so that the project section is scalable, which means I can continue adding future coursework, research, and engineering projects in the same format.
+              For my ECE 1100 Discovery Project, I built an <strong>activation compression trainer</strong> for deep learning. The purpose of this project was to make training more memory-efficient by compressing the activations that must be stored for backpropagation. In standard neural network training, activation storage can become a major GPU memory bottleneck. My project focused on reducing that cost while still supporting practical model training with a hardware-aware implementation mindset.
             </p>
             <p>
-              The final version of this feature will include a concise explanation of the problem, my role, the technical ideas involved, the outcome, and why the project matters. I also plan to include visuals such as screenshots, diagrams, or presentation materials so visitors can understand the work quickly. This structure will make the ePortfolio useful not only for class requirements, but also for future internships, research applications, and recruiting conversations.
+              A key result of this project is that I can apply <strong>uniform 2-bit activation compression across all layers</strong>. Compared to FP32 activation storage, this reduces raw activation storage from 32 bits to 2 bits per value, making it <strong>16× smaller</strong> and saving <strong>93.75%</strong> of raw activation storage. Compared to FP16 or BF16 activations, it is <strong>8× smaller</strong>, which corresponds to <strong>87.5%</strong> raw activation storage savings. These numbers describe activation storage specifically, which is the part of training memory that this project directly targets.
             </p>
+
+            <div style="margin: 10px 0 18px;">
+              <span class="badge">PyTorch</span>
+              <span class="badge">Triton</span>
+              <span class="badge">CUDA</span>
+              <span class="badge">2-Bit Activations</span>
+              <span class="badge">Memory Efficiency</span>
+              <span class="badge">ML Systems</span>
+            </div>
+
+            <div class="grid-2">
+              <div class="card">
+                <h3>The Problem</h3>
+                <p>
+                  Deep learning models often require large amounts of GPU memory during training because activations must be saved for the backward pass. As models become larger and training becomes more expensive, this storage requirement turns into a major systems bottleneck. I wanted to explore whether activation compression could significantly reduce this memory burden and make training more efficient.
+                </p>
+              </div>
+              <div class="card">
+                <h3>The Process and Progress</h3>
+                <p>
+                  I approached the project by studying activation memory bottlenecks, then building a custom training workflow around activation compression. Over the semester, I developed the trainer, tested implementation ideas, debugged memory- and performance-related issues, and improved the design until I could support uniform 2-bit activation compression across all layers. This process helped me understand how high-level machine learning frameworks connect to lower-level GPU behavior.
+                </p>
+              </div>
+              <div class="card">
+                <h3>ECE Skills Gained</h3>
+                <p>
+                  The main ECE skill I applied in this project was <strong>GPU programming</strong>, especially the CUDA-based concepts I learned in <strong>ECE 3803: General GPU Programming</strong>. That class helped me think about parallel execution, memory efficiency, and performance-aware implementation. I used <strong>PyTorch</strong> for the training framework and <strong>Triton</strong> to support GPU-efficient computation and system design ideas.
+                </p>
+              </div>
+              <div class="card">
+                <h3>Successes, Challenges, and Final Thoughts</h3>
+                <p>
+                  One major success was building a system-level project instead of only training a model. I also achieved a large reduction in raw activation storage by using uniform 2-bit compression. A major challenge was debugging compression and memory-related behavior while balancing efficiency, correctness, and training practicality. Overall, this project increased my interest in deep learning systems, GPU acceleration, and efficient AI training, and it showed me how ECE knowledge can directly support modern machine learning work.
+                </p>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+              <h3>Memory Usage Comparison</h3>
+              <p>
+                The two spaces below are reserved for my memory usage comparison figures. One image will show the memory usage under standard training, and the other will show the memory usage under my 2-bit activation compression trainer.
+              </p>
+              <div class="grid-2" style="margin-top: 16px;">
+                <div class="card" style="min-height: 280px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; border-style:dashed; background:#fbfdff;">
+                  <h3 style="margin-bottom: 10px;">Standard Training Memory Usage</h3>
+                  <p class="small">Insert your standard-training memory usage image here.</p>
+                </div>
+                <div class="card" style="min-height: 280px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; border-style:dashed; background:#fbfdff;">
+                  <h3 style="margin-bottom: 10px;">2-Bit Activation Compression Memory Usage</h3>
+                  <p class="small">Insert your 2-bit activation-compression memory usage image here.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </article>
       </div>
